@@ -1,60 +1,51 @@
 import React from 'react';
 
 const JoinSection = () => (
-    <section className="join-section">
+    <section className="section join-section" id="join">
         <div className="join-content">
-            {/* Left: Big "JOIN" + script "Us" + photos */}
             <div className="join-left">
-                <div className="join-big-text">JOIN</div>
+                <div className="join-big-text">
+                    JOIN
+                </div>
                 <span className="join-script">Us</span>
-
                 <div className="join-photos">
                     <img
                         className="join-photo"
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=400&fit=crop&crop=face"
-                        alt="Artist"
+                        src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=200&h=250&fit=crop"
+                        alt="Art 1"
                     />
                     <img
                         className="join-photo"
-                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop&crop=face"
-                        alt="Artist"
+                        src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=180&h=220&fit=crop"
+                        alt="Art 2"
                     />
                 </div>
             </div>
-
-            {/* Right: CTA text */}
             <div className="join-right">
-                <p className="join-cta reveal">
-                    Ready to take control of your
-                    creative journey? <span className="ulink">Join now</span> and
-                    let's shape the future of the art
-                    world together!
+                <p className="join-cta">
+                    Join our global community of contemporary curators and artists.{' '}
+                    <span className="ulink">No gatekeepers</span>, no algorithms — just community,
+                    visibility, and real opportunities.
                 </p>
-
                 <div className="join-arrow">
-                    <svg width="55" height="55" viewBox="0 0 55 55" fill="none">
-                        <path d="M8 28H42M32 18L42 28L32 38" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
                 </div>
             </div>
         </div>
-
-        {/* Footer bar */}
-        <div className="join-footer">
-            <div>2026 © FOLLOW.ART</div>
-            <div className="join-footer-center">
-                <a href="#">Brand Kit</a>
-                <a href="#">Buy Gift Card</a>
-                <a href="#">Terms & Conditions</a>
+        <footer className="footer">
+            <span>© 2024 FOLLOW.ART</span>
+            <div className="footer-center">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
             </div>
-            <div className="join-footer-right">
-                Digital product development by Vide Infra
-                <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="9" stroke="white" strokeWidth="1.5" />
-                    <path d="M6 10L9 13L14 7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+            <div className="footer-right">
+                <a href="#">Instagram</a>
+                <span>·</span>
+                <a href="#">Twitter</a>
             </div>
-        </div>
+        </footer>
     </section>
 );
 

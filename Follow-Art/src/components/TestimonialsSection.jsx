@@ -2,103 +2,79 @@ import React, { useState } from 'react';
 
 const testimonials = [
     {
-        quote: "I believe FOLLOW.ART is a bold initiative. A very needed one. I resonate with the idea that you must create a path that can be walked by many not only by few. I believe the idea that there is an art market and an art world that sometimes are two worlds apart. I follow the idea to create a path between them to dissipate the separation.",
-        name: 'Teona Todorel',
-        role: 'Visual Artist',
-        country: 'Romania',
-        flag: '🇷🇴',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face',
+        quote: "FOLLOW.ART gave me the visibility I never had on other platforms. Within weeks, curators from three continents reached out for collaborations.",
+        name: 'Elina Vasquez',
+        role: 'Mixed-media artist',
+        loc: 'Barcelona',
+        flag: '🇪🇸',
+        img: 'photo-1544005313-94ddf0286df2',
     },
     {
-        quote: "I find this project really useful, especially for getting an insight into different art scenes. It's nice to see that the platform facilitates the process of connecting with emerging curators and artists beyond my country.",
-        name: 'Sabine Wrachtler',
-        role: 'Art Historian, Curator',
-        country: 'Austria',
+        quote: "As a curator, I was drowning in emails and portfolios. The Connectory changed everything — I can find exactly the artists I need, fast.",
+        name: 'James Thornton',
+        role: 'Independent Curator',
+        loc: 'London',
+        flag: '🇬🇧',
+        img: 'photo-1507003211169-0a1dd7228f2d',
+    },
+    {
+        quote: "The Nexus Card is brilliant. One link that shows my full practice — portfolio, exhibitions, press, statement. No more PDFs and broken websites.",
+        name: 'Anika Bauer',
+        role: 'Sculptor',
+        loc: 'Vienna',
         flag: '🇦🇹',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
-    },
-    {
-        quote: "Art is something that connects us all, and FOLLOW.ART makes that connection tangible. The platform brings artists and curators together in a way that feels organic, respectful, and truly collaborative.",
-        name: 'Marco Bellini',
-        role: 'Contemporary Curator',
-        country: 'Italy',
-        flag: '🇮🇹',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+        img: 'photo-1438761681033-6461ffad8d80',
     },
 ];
 
-const scatteredCards = [
-    { img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=200&h=150&fit=crop', name: 'Sophie Werner', role: 'Art Historian, Curator' },
-    { img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=200&h=150&fit=crop', name: 'Elena Rossi', role: 'Visual Artist' },
-    { img: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=200&h=150&fit=crop', name: 'David Kang', role: 'Installation Artist' },
-    { img: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=200&h=150&fit=crop', name: 'Clara Johansson', role: 'Curator' },
+const sCards = [
+    { name: 'Mei Wong', role: 'Ceramic Artist', loc: 'Taipei', img: 'photo-1531746020798-e6953c6e8e04' },
+    { name: 'Tobias Graf', role: 'Curator', loc: 'Munich', img: 'photo-1500648767791-00dcc994a43e' },
+    { name: 'Priya Mehta', role: 'Painter', loc: 'Mumbai', img: 'photo-1494790108377-be9c29b29330' },
+    { name: 'Lucas Ngo', role: 'Installation', loc: 'Montreal', img: 'photo-1472099645785-5658abf4ff4e' },
 ];
 
 const TestimonialsSection = () => {
     const [idx, setIdx] = useState(0);
-    const cur = testimonials[idx];
+    const t = testimonials[idx];
 
     return (
-        <section className="testimonials-section">
-            <div className="testimonials-bg">TESTIMONIALS</div>
-
-            <div className="testimonials-scribble">
-                <svg width="90" height="55" viewBox="0 0 90 55" fill="none">
-                    <ellipse cx="45" cy="27" rx="40" ry="22" stroke="white" strokeWidth="1.5" fill="none" strokeDasharray="3 3" />
-                    <ellipse cx="45" cy="27" rx="40" ry="22" stroke="white" strokeWidth="1" fill="none" transform="rotate(8 45 27)" />
-                </svg>
-            </div>
-
+        <section className="section testimonials-section" id="testimonials">
+            <span className="testimonials-bg">TESTIMONIALS</span>
             <div className="testimonials-inner">
                 <div>
-                    <div className="testi-card" key={idx} style={{ animation: 'fadeSlide 0.35s ease' }}>
-                        <p className="testi-quote">{cur.quote}</p>
+                    <div className="testi-card">
+                        <p className="testi-quote">"{t.quote}"</p>
                         <div className="testi-author">
-                            <img className="testi-avatar" src={cur.avatar} alt={cur.name} />
+                            <img className="testi-avatar" src={`https://images.unsplash.com/${t.img}?w=90&h=90&fit=crop&crop=face`} alt={t.name} />
                             <div className="testi-info">
-                                <h4>{cur.name}</h4>
-                                <p>{cur.role}</p>
-                                <p>{cur.country}</p>
+                                <h4>{t.name}</h4>
+                                <p>{t.role} • {t.loc}</p>
                             </div>
-                            <span className="testi-flag">{cur.flag}</span>
+                            <span className="testi-flag">{t.flag}</span>
                         </div>
                     </div>
-
                     <div className="testi-nav">
-                        <button onClick={() => setIdx((idx - 1 + testimonials.length) % testimonials.length)}>
-                            <span className="circle-icon">
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M7 1L3 5L7 9" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                            </span>
-                            Prev
+                        <button onClick={() => setIdx((p) => (p - 1 + testimonials.length) % testimonials.length)}>
+                            <span className="circle-icon">←</span> Prev
                         </button>
-                        <button onClick={() => setIdx((idx + 1) % testimonials.length)}>
-                            Next
-                            <span className="circle-icon">
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M3 1L7 5L3 9" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                            </span>
+                        <button onClick={() => setIdx((p) => (p + 1) % testimonials.length)}>
+                            Next <span className="circle-icon">→</span>
                         </button>
                     </div>
                 </div>
-
                 <div className="scattered-wrap">
-                    {scatteredCards.map((c, i) => (
+                    {sCards.map((c, i) => (
                         <div className="s-card" key={i}>
-                            <img src={c.img} alt={c.name} />
+                            <img src={`https://images.unsplash.com/${c.img}?w=220&h=140&fit=crop&crop=face`} alt={c.name} />
                             <div className="s-card-info">
                                 <h5>{c.name}</h5>
-                                <p>{c.role}</p>
+                                <p>{c.role} • {c.loc}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-
-            <style>{`
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
         </section>
     );
 };

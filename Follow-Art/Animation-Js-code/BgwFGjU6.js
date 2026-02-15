@@ -1,0 +1,32 @@
+import { aT as r, O as f, A as u } from "./1IpmvU-P.js";
+function d(s) {
+    const t = r(0)
+        , a = r(0);
+    {
+        let o;
+        const n = new ResizeObserver(e => {
+            var l, b;
+            const i = (b = (l = e[0]) == null ? void 0 : l.borderBoxSize) == null ? void 0 : b[0];
+            i && (t.value = i.inlineSize,
+                a.value = i.blockSize)
+        }
+        )
+            , c = e => {
+                o && (n.unobserve(o),
+                    o = void 0),
+                    e && (n.observe(e),
+                        o = e)
+            }
+            ;
+        f(() => {
+            n.disconnect()
+        }
+        ),
+            s instanceof HTMLElement ? c(s) : u(r(s), c)
+    }
+    return {
+        width: t,
+        height: a
+    }
+}
+export { d as u };
