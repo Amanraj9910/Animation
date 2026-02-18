@@ -1,19 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
+import useSvgHoverStretch from '../hooks/useSvgHoverStretch';
+
+const HERO_BASE_SCALES = [0.76, 0.96, 0.86, 0.78, 0.86, 0.68, 0.81, 0.80, 0.90, 0.75];
 
 const HeroSection = () => {
     const svgRef = useRef(null);
+
+    useSvgHoverStretch(svgRef, {
+        baseScales: HERO_BASE_SCALES,
+        selector: 'path[data-char]',
+    });
 
     useEffect(() => {
         const paths = svgRef.current?.querySelectorAll('path[data-char]');
         if (!paths) return;
 
         // Start compressed, animate to varied scaleY per letter
-        const scales = [0.76, 0.96, 0.86, 0.78, 0.86, 0.68, 0.81, 0.80, 0.90, 0.75];
         paths.forEach((p) => gsap.set(p, { scaleY: 0, transformOrigin: '50% 0%' }));
 
         gsap.to(paths, {
-            scaleY: (i) => scales[i] || 0.8,
+            scaleY: (i) => HERO_BASE_SCALES[i] || 0.8,
             duration: 1.2,
             ease: 'power3.out',
             stagger: 0.07,
@@ -23,7 +30,7 @@ const HeroSection = () => {
 
     return (
         <section className="section hero-section" id="hero">
-            <div className="hero-title" ref={svgRef}>
+            <div className="hero-title" ref={svgRef} style={{ pointerEvents: 'auto' }}>
                 {/* Desktop SVG — actual FOLLOW.ART paths */}
                 <svg className="hero-svg hero-svg--desktop" width="1420" height="500" viewBox="0 0 1420 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path data-char="F" d="M109 63.1629H54.1813V219.126H102.626V276.289H54.1813V500H0V6H109V63.1629Z" fill="white" />

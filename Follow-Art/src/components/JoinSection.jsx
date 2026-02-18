@@ -1,4 +1,7 @@
 import React, { useRef, useEffect } from 'react';
+import useSvgHoverStretch from '../hooks/useSvgHoverStretch';
+
+const JOIN_BASE_SCALES = [0.702, 0.869, 0.765, 0.986];
 
 // Trail images — using Unsplash art photos as stand-ins for the original trail PNGs
 const TRAIL_IMGS = [
@@ -26,10 +29,16 @@ const TRAIL_DELAY = 120; // ms between each image appearing
 
 const JoinSection = () => {
     const trailRef = useRef(null);
+    const svgTitleRef = useRef(null);
     const mousePos = useRef({ x: 0, y: 0 });
     const lastPos = useRef({ x: 0, y: 0 });
     const imgIndex = useRef(0);
     const lastTime = useRef(0);
+
+    useSvgHoverStretch(svgTitleRef, {
+        baseScales: JOIN_BASE_SCALES,
+        selector: 'path[data-char]',
+    });
 
     useEffect(() => {
         const section = trailRef.current;
@@ -79,7 +88,7 @@ const JoinSection = () => {
                 <div className="join-left">
                     <div className="join-title title" ref={trailRef}>
                         <h2 className="sr-only">Join Us</h2>
-                        <div className="title-children-wrapper">
+                        <div className="title-children-wrapper" ref={svgTitleRef}>
                             {/* Desktop SVG */}
                             <svg
                                 className="section-10__title--desktop img-full is-hidden:sm-down svg-fix"
@@ -87,10 +96,10 @@ const JoinSection = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="680" height="580" fill="none" viewBox="0 0 680 580"
                             >
-                                <path fill="#000" d="M481 585V5h100.68l31.462 512.886h11.012l-3.146-116.829L612.356 5H680v580H579.32L542.352 72.114h-11.799l4.72 116.829L547.858 585z" />
-                                <path fill="#000" d="M385 585V5h67v580z" style={{ transform: 'scaleY(0.764938)' }} />
-                                <path fill="#000" d="M274.5 585c-53.429 0-82.5-30.062-82.5-85.312V86.125C192 30.063 221.071 0 274.5 0S357 30.063 357 86.125v413.563c0 55.25-29.071 85.312-82.5 85.312m0-65.812c10.214 0 14.929-8.938 14.929-24.376V90.188c0-15.438-4.715-24.376-14.929-24.376s-15.714 8.938-15.714 24.376v404.624c0 15.438 5.5 24.376 15.714 24.376" style={{ transform: 'scaleY(0.868563)' }} />
-                                <path fill="#000" d="M81.243 585C26.86 585-1.514 554.775.063 498.408L6.367 250.07H73.36l-7.093 244.254c-.788 15.521 4.729 24.507 14.975 24.507s14.975-8.986 14.975-24.507V74.437H.062V5H164v493.408C164 554.775 135.626 585 81.243 585" style={{ transform: 'scaleY(0.702188)' }} />
+                                <path data-char="J" fill="#000" d="M81.243 585C26.86 585-1.514 554.775.063 498.408L6.367 250.07H73.36l-7.093 244.254c-.788 15.521 4.729 24.507 14.975 24.507s14.975-8.986 14.975-24.507V74.437H.062V5H164v493.408C164 554.775 135.626 585 81.243 585" style={{ transform: 'scaleY(0.702188)' }} />
+                                <path data-char="O" fill="#000" d="M274.5 585c-53.429 0-82.5-30.062-82.5-85.312V86.125C192 30.063 221.071 0 274.5 0S357 30.063 357 86.125v413.563c0 55.25-29.071 85.312-82.5 85.312m0-65.812c10.214 0 14.929-8.938 14.929-24.376V90.188c0-15.438-4.715-24.376-14.929-24.376s-15.714 8.938-15.714 24.376v404.624c0 15.438 5.5 24.376 15.714 24.376" style={{ transform: 'scaleY(0.868563)' }} />
+                                <path data-char="I" fill="#000" d="M385 585V5h67v580z" style={{ transform: 'scaleY(0.764938)' }} />
+                                <path data-char="N" fill="#000" d="M481 585V5h100.68l31.462 512.886h11.012l-3.146-116.829L612.356 5H680v580H579.32L542.352 72.114h-11.799l4.72 116.829L547.858 585z" />
                             </svg>
 
                             {/* Mobile SVG */}

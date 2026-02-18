@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import useSvgHoverStretch from '../hooks/useSvgHoverStretch';
 
 const testimonials = [
     {
@@ -35,8 +36,16 @@ const testimonials = [
     },
 ];
 
+const TESTIMONIALS_BASE_SCALES = [0.790, 0.882, 0.727, 0.982, 0.814, 0.734, 0.924, 1.0, 0.838, 0.758, 0.936, 0.866];
+
 const TestimonialsSection = () => {
     const [idx, setIdx] = useState(0);
+    const headerRef = useRef(null);
+
+    useSvgHoverStretch(headerRef, {
+        baseScales: TESTIMONIALS_BASE_SCALES,
+        selector: 'path[data-char]',
+    });
 
     const handleNext = () => setIdx((p) => (p + 1) % testimonials.length);
     const handlePrev = () => setIdx((p) => (p - 1 + testimonials.length) % testimonials.length);
@@ -57,22 +66,22 @@ const TestimonialsSection = () => {
     return (
         <section className="section testimonials-section" id="testimonials">
             {/* SVG Title */}
-            <div className="testimonials-header title">
+            <div className="testimonials-header title" ref={headerRef}>
                 <h2 className="sr-only">Testimonials</h2>
                 <div className="title-children-wrapper">
                     <svg className="section-9__title--desktop is-hidden:sm-down svg-fix" style={{ transform: 'scaleY(0.990262)', transformOrigin: 'center top' }} width="1420" height="465" viewBox="0 0 1420 465" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#000" d="M1362.65 465c-37.04 0-56.65-23.896-56.65-67.813V302.25h46.3v91.063c0 12.27 3.81 19.374 10.35 19.374 7.08 0 10.34-7.104 10.34-19.374v-58.771c0-78.792-66.99-94.292-66.99-192.459V68.458C1306 23.896 1326.15 0 1363.74 0c38.67 0 58.27 23.896 56.1 68.458l-4.36 104.625h-46.3l4.9-101.395c.55-12.271-3.26-19.376-10.34-19.376-7.09 0-10.9 7.105-10.9 19.376v65.229c0 77.5 67 95.583 67 192.458v67.812c0 43.917-19.61 67.813-57.19 67.813" style={{ transform: 'scaleY(0.865687)' }} />
-                        <path fill="#000" d="M1255.17 411.771H1297V465h-88V5h46.17z" style={{ transform: 'scaleY(0.93575)' }} />
-                        <path fill="#000" d="m1150.89 465-5.98-151.143h-22.82L1116.11 465H1071l17.39-460h90.76L1196 465zm-27.17-205.029h19.56l-4.35-109.085-1.08-93.972h-8.7l-1.08 93.972z" style={{ transform: 'scaleY(0.757812)' }} />
-                        <path fill="#000" d="M1011 465V5h47v460z" style={{ transform: 'scaleY(0.837875)' }} />
-                        <path fill="#000" d="M854 465V5h69.818l21.818 406.771h7.637l-2.182-92.657-6-314.114H992v460h-69.818L896.545 58.229h-8.181l3.272 92.657L900.364 465z" style={{ transform: 'scaleY(1)' }} />
-                        <path fill="#000" d="M777.5 465c-37.238 0-57.5-23.896-57.5-67.813V68.458C720 23.896 740.262 0 777.5 0S835 23.896 835 68.458v328.729C835 441.104 814.738 465 777.5 465m0-52.313c7.119 0 10.405-7.104 10.405-19.374V71.688c0-12.271-3.286-19.376-10.405-19.376s-10.952 7.105-10.952 19.376v321.625c0 12.27 3.833 19.374 10.952 19.374" style={{ transform: 'scaleY(0.924)' }} />
-                        <path fill="#000" d="M522 465V5h75.857l9.823 398.229h7.64L622.96 5H701v460h-46.933l5.457-314.114 2.183-92.657h-8.186l-15.826 398.228h-52.936L568.933 58.229h-8.186l2.183 92.657L568.387 465z" style={{ transform: 'scaleY(0.734062)' }} />
-                        <path fill="#000" d="M456 465V5h47v460z" style={{ transform: 'scaleY(0.814125)' }} />
-                        <path fill="#000" d="M444 5v53.229h-27.273V465h-46.909V58.229H342V5z" style={{ transform: 'scaleY(0.982187)' }} />
-                        <path fill="#000" d="M274.646 465C237.608 465 218 441.104 218 397.187V302.25h46.297v91.063c0 12.27 3.813 19.374 10.349 19.374 7.081 0 10.349-7.104 10.349-19.374v-58.771c0-78.792-66.995-94.292-66.995-192.459V68.458C218 23.896 238.153 0 275.735 0c38.672 0 58.28 23.896 56.101 68.458l-4.357 104.625h-46.297l4.902-101.395c.545-12.271-3.268-19.376-10.349-19.376s-10.893 7.105-10.893 19.376v65.229c0 77.5 66.994 95.583 66.994 192.458v67.812c0 43.917-19.608 67.813-57.19 67.813" style={{ transform: 'scaleY(0.72725)' }} />
-                        <path fill="#000" d="M114 465V5h94v53.229h-47.547v143.914h42.082v53.228h-42.082v156.4H208V465z" style={{ transform: 'scaleY(0.882313)' }} />
-                        <path fill="#000" d="M102 5v53.229H74.727V465H27.818V58.229H0V5z" style={{ transform: 'scaleY(0.790375)' }} />
+                        <path data-char="T" fill="#000" d="M102 5v53.229H74.727V465H27.818V58.229H0V5z" style={{ transform: 'scaleY(0.790375)' }} />
+                        <path data-char="E" fill="#000" d="M114 465V5h94v53.229h-47.547v143.914h42.082v53.228h-42.082v156.4H208V465z" style={{ transform: 'scaleY(0.882313)' }} />
+                        <path data-char="S" fill="#000" d="M274.646 465C237.608 465 218 441.104 218 397.187V302.25h46.297v91.063c0 12.27 3.813 19.374 10.349 19.374 7.081 0 10.349-7.104 10.349-19.374v-58.771c0-78.792-66.995-94.292-66.995-192.459V68.458C218 23.896 238.153 0 275.735 0c38.672 0 58.28 23.896 56.101 68.458l-4.357 104.625h-46.297l4.902-101.395c.545-12.271-3.268-19.376-10.349-19.376s-10.893 7.105-10.893 19.376v65.229c0 77.5 66.994 95.583 66.994 192.458v67.812c0 43.917-19.608 67.813-57.19 67.813" style={{ transform: 'scaleY(0.72725)' }} />
+                        <path data-char="T" fill="#000" d="M444 5v53.229h-27.273V465h-46.909V58.229H342V5z" style={{ transform: 'scaleY(0.982187)' }} />
+                        <path data-char="I" fill="#000" d="M456 465V5h47v460z" style={{ transform: 'scaleY(0.814125)' }} />
+                        <path data-char="M" fill="#000" d="M522 465V5h75.857l9.823 398.229h7.64L622.96 5H701v460h-46.933l5.457-314.114 2.183-92.657h-8.186l-15.826 398.228h-52.936L568.933 58.229h-8.186l2.183 92.657L568.387 465z" style={{ transform: 'scaleY(0.734062)' }} />
+                        <path data-char="O" fill="#000" d="M777.5 465c-37.238 0-57.5-23.896-57.5-67.813V68.458C720 23.896 740.262 0 777.5 0S835 23.896 835 68.458v328.729C835 441.104 814.738 465 777.5 465m0-52.313c7.119 0 10.405-7.104 10.405-19.374V71.688c0-12.271-3.286-19.376-10.405-19.376s-10.952 7.105-10.952 19.376v321.625c0 12.27 3.833 19.374 10.952 19.374" style={{ transform: 'scaleY(0.924)' }} />
+                        <path data-char="N" fill="#000" d="M854 465V5h69.818l21.818 406.771h7.637l-2.182-92.657-6-314.114H992v460h-69.818L896.545 58.229h-8.181l3.272 92.657L900.364 465z" style={{ transform: 'scaleY(1)' }} />
+                        <path data-char="I" fill="#000" d="M1011 465V5h47v460z" style={{ transform: 'scaleY(0.837875)' }} />
+                        <path data-char="A" fill="#000" d="m1150.89 465-5.98-151.143h-22.82L1116.11 465H1071l17.39-460h90.76L1196 465zm-27.17-205.029h19.56l-4.35-109.085-1.08-93.972h-8.7l-1.08 93.972z" style={{ transform: 'scaleY(0.757812)' }} />
+                        <path data-char="L" fill="#000" d="M1255.17 411.771H1297V465h-88V5h46.17z" style={{ transform: 'scaleY(0.93575)' }} />
+                        <path data-char="S" fill="#000" d="M1362.65 465c-37.04 0-56.65-23.896-56.65-67.813V302.25h46.3v91.063c0 12.27 3.81 19.374 10.35 19.374 7.08 0 10.34-7.104 10.34-19.374v-58.771c0-78.792-66.99-94.292-66.99-192.459V68.458C1306 23.896 1326.15 0 1363.74 0c38.67 0 58.27 23.896 56.1 68.458l-4.36 104.625h-46.3l4.9-101.395c.55-12.271-3.26-19.376-10.34-19.376-7.09 0-10.9 7.105-10.9 19.376v65.229c0 77.5 67 95.583 67 192.458v67.812c0 43.917-19.61 67.813-57.19 67.813" style={{ transform: 'scaleY(0.865687)' }} />
                     </svg>
                     <svg className="img-full is-hidden:md-up svg-fix" style={{ transform: 'scaleY(0.990262)', transformOrigin: 'center top' }} xmlns="http://www.w3.org/2000/svg" width="350" height="354" fill="none" viewBox="0 0 350 354">
                         <path fill="#000" d="M305.427 154.146c-14.558 0-22.48-7.922-22.48-22.48V22.694C282.947 7.92 290.869 0 305.427 0s22.479 7.921 22.479 22.694v108.972c0 14.558-7.921 22.48-22.479 22.48Zm0-17.342c2.783 0 4.068-2.355 4.068-6.422V23.764c0-4.068-1.285-6.423-4.068-6.423-2.783 0-4.282 2.355-4.282 6.423v106.618c0 4.067 1.499 6.422 4.282 6.422Z" />

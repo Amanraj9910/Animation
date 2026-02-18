@@ -773,7 +773,17 @@ h3 {
 }
 
 .svg-fix {
-  pointer-events: none;
+  pointer-events: auto;
+}
+
+/* SVG letter hover-stretch transitions */
+.hero-svg path,
+.nexuscard-svg path,
+.section-7__title--desktop path,
+.section-9__title--desktop path,
+.section-10__title--desktop path {
+  transform-origin: center top;
+  transition: transform 0.4s ease-out;
 }
 
 .sr-only {
