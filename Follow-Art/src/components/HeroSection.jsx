@@ -45,7 +45,7 @@ const HeroSection = () => {
             </div>
 
             {/* Floating artist profile cards */}
-            <div className="hero-cards">
+            {/* <div className="hero-cards">
                 <div className="artist-card">
                     <div className="artist-card-name">Sophie<br />Wrachtfeld</div>
                     <img className="artist-card-photo" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=350&fit=crop&crop=face" alt="Sophie Wrachtfeld" />
@@ -64,7 +64,7 @@ const HeroSection = () => {
                     <div className="artist-card-role">Artist</div>
                     <div className="artist-card-country">Romania</div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="hero-bottom">
                 <div className="hero-bottom-text">

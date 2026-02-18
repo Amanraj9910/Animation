@@ -41,7 +41,7 @@ function App() {
     });
 
     // Connectory shot perspective
-    gsap.fromTo('.connectory-shot', { y: 80, opacity: 0.3 }, {
+    gsap.fromTo('.connectory-shot', { y: 80, opacity: 1 }, {
       scrollTrigger: { trigger: '.connectory-section', start: 'top 70%', end: 'center center', scrub: 1 },
       y: 0, opacity: 1, ease: 'power2.out',
     });
@@ -58,14 +58,14 @@ function App() {
   return (
     <>
       <Header />
-      <HeroSection />
-      <NexusSection />
-      <FollowArtSection />
-      <NexusCardSection />
-      <ConnectorySection />
-      <ArtistCarousel />
-      <TestimonialsSection />
-      <JoinSection />
+      <div className="parallax-section parallax-section--1"><HeroSection /></div>
+      <div className="parallax-section parallax-section--2"><NexusSection /></div>
+      <div className="parallax-section parallax-section--3"><FollowArtSection /></div>
+      <div className="parallax-section parallax-section--4"><NexusCardSection /></div>
+      <div className="parallax-section parallax-section--5"><ConnectorySection /></div>
+      <div className="parallax-section parallax-section--6"><ArtistCarousel /></div>
+      <div className="parallax-section parallax-section--7"><TestimonialsSection /></div>
+      <div className="parallax-section parallax-section--8"><JoinSection /></div>
 
       {/* Floating Join button */}
       <a className="floating-join" href="#join">
