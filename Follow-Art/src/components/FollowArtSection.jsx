@@ -5,7 +5,10 @@ const FollowArtSection = () => (
         <div className="followart-inner">
             <div className="followart-left">
                 <div className="followart-title">
-                    <h2>FOLLOW.<br />ART</h2>
+                    <h2>
+                        FOLLOW.ART
+                        <img src="/img/star.svg" className="followart-star" alt="" />
+                    </h2>
                 </div>
                 <hr className="nexus-divider" style={{ borderColor: 'rgba(0,0,0,0.2)', margin: '24px 0' }} />
                 <p className="followart-desc">
@@ -16,6 +19,9 @@ const FollowArtSection = () => (
                 </p>
             </div>
             <div className="followart-right">
+                <div className="followart-cross-bg">
+                    <img src="/img/cross.svg" alt="" />
+                </div>
                 <div className="flip-cards">
                     {[
                         { n: 1, front: 'Professional\npresentation', back: 'Share your creative identity via the Nexus Card' },

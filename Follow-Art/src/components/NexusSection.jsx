@@ -4,14 +4,23 @@ const NexusSection = () => (
     <section className="section nexus-section" id="nexus">
         <div className="nexus-inner">
             <div className="nexus-left">
+                <div className="nexus-helix-bg">
+                    <img src="/img/helix-decoration.svg" alt="" />
+                </div>
                 <div className="nexus-video-wrap">
-                    <span>▶</span>
+                    <video
+                        className="nexus-video"
+                        src="/img/8534547-uhd_3840_2160_30fps.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                 </div>
             </div>
             <div className="nexus-right">
                 <div className="nexus-title">
-
-
                     {/* <div className="section-2__content col-divider__right:md col col-12 col--6:md"> */}
                     <div className="section-2__content-top">
                         <div className="section-2__title">

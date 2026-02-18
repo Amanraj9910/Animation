@@ -34,6 +34,16 @@ const testimonials = [
         flag: '🇬🇧',
         img: 'photo-1500648767791-00dcc994a43e',
     },
+    {
+        quote: "Whether I'm an artist, a curator, or a collector — but only the curators. Two years in FOLLOW.ART is changing the game.",
+        name: 'Marcus Webb',
+        role: 'Gallery Director',
+        loc: 'London',
+        flag: '🇬🇧',
+        img: 'photo-1500648767791-00dcc994a43e',
+    },
+
+
 ];
 
 const TESTIMONIALS_BASE_SCALES = [0.790, 0.882, 0.727, 0.982, 0.814, 0.734, 0.924, 1.0, 0.838, 0.758, 0.936, 0.866];
