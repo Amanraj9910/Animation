@@ -1,0 +1,4 @@
+[build]
+  base = "Follow-Art"
+  publish = "dist"
+  command = "npm run build"
