@@ -1,190 +1,128 @@
-import React, { useRef, useEffect } from 'react';
-import useSvgHoverStretch from '../hooks/useSvgHoverStretch';
-
-const JOIN_BASE_SCALES = [0.702, 0.869, 0.765, 0.986];
-
-// Trail images — using Unsplash art photos as stand-ins for the original trail PNGs
-const TRAIL_IMGS = [
-    'photo-1494790108377-be9c29b29330',
-    'photo-1500648767791-00dcc994a43e',
-    'photo-1534528741775-53994a69daeb',
-    'photo-1507003211169-0a1dd7228f2d',
-    'photo-1438761681033-6461ffad8d80',
-    'photo-1472099645785-5658abf4ff4e',
-    'photo-1544005313-94ddf0286df2',
-    'photo-1506794778202-cad84cf45f1d',
-    'photo-1531746020798-e6953c6e8e04',
-    'photo-1492562080023-ab3db95bfbce',
-    'photo-1494790108377-be9c29b29330',
-    'photo-1500648767791-00dcc994a43e',
-    'photo-1534528741775-53994a69daeb',
-    'photo-1507003211169-0a1dd7228f2d',
-    'photo-1438761681033-6461ffad8d80',
-    'photo-1472099645785-5658abf4ff4e',
-];
-
-const TRAIL_SIZE = 160; // px
-const TRAIL_COUNT = 16;
-const TRAIL_DELAY = 120; // ms between each image appearing
+import React, { useState } from 'react';
 
 const JoinSection = () => {
-    const trailRef = useRef(null);
-    const svgTitleRef = useRef(null);
-    const mousePos = useRef({ x: 0, y: 0 });
-    const lastPos = useRef({ x: 0, y: 0 });
-    const imgIndex = useRef(0);
-    const lastTime = useRef(0);
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [submitted, setSubmitted] = useState(false);
 
-    useSvgHoverStretch(svgTitleRef, {
-        baseScales: JOIN_BASE_SCALES,
-        selector: 'path[data-char]',
-    });
-
-    useEffect(() => {
-        const section = trailRef.current;
-        if (!section) return;
-
-        const imgs = section.querySelectorAll('.trail-photo');
-
-        const onMouseMove = (e) => {
-            const rect = section.getBoundingClientRect();
-            mousePos.current = {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top,
-            };
-
-            const now = Date.now();
-            const dx = mousePos.current.x - lastPos.current.x;
-            const dy = mousePos.current.y - lastPos.current.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist > 40 && now - lastTime.current > TRAIL_DELAY) {
-                lastTime.current = now;
-                lastPos.current = { ...mousePos.current };
-
-                const img = imgs[imgIndex.current % TRAIL_COUNT];
-                imgIndex.current++;
-
-                img.style.left = `${mousePos.current.x - TRAIL_SIZE / 2}px`;
-                img.style.top = `${mousePos.current.y - TRAIL_SIZE / 2}px`;
-                img.style.zIndex = imgIndex.current;
-                img.classList.add('trail-photo--visible');
-
-                setTimeout(() => {
-                    img.classList.remove('trail-photo--visible');
-                }, 700);
-            }
-        };
-
-        section.addEventListener('mousemove', onMouseMove);
-        return () => section.removeEventListener('mousemove', onMouseMove);
-    }, []);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const subject = `Portfolio Contact from ${formData.name}`;
+        const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
+        window.open(`mailto:rajaman78167@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 3000);
+    };
 
     return (
-        <section className="section join-section" id="join">
-            <div className="join-content">
-
-                {/* Left col — SVG title + image trail */}
-                <div className="join-left">
-                    <div className="join-title title" ref={trailRef}>
-                        <h2 className="sr-only">Join Us</h2>
-                        <div className="title-children-wrapper" ref={svgTitleRef}>
-                            {/* Desktop SVG */}
-                            <svg
-                                className="section-10__title--desktop img-full is-hidden:sm-down svg-fix"
-                                style={{ transform: 'scaleY(0.986214)', transformOrigin: 'center top', overflow: 'visible' }}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="680" height="580" fill="none" viewBox="0 0 680 580"
-                            >
-                                <path data-char="J" fill="#000" d="M81.243 585C26.86 585-1.514 554.775.063 498.408L6.367 250.07H73.36l-7.093 244.254c-.788 15.521 4.729 24.507 14.975 24.507s14.975-8.986 14.975-24.507V74.437H.062V5H164v493.408C164 554.775 135.626 585 81.243 585" style={{ transform: 'scaleY(0.702188)' }} />
-                                <path data-char="O" fill="#000" d="M274.5 585c-53.429 0-82.5-30.062-82.5-85.312V86.125C192 30.063 221.071 0 274.5 0S357 30.063 357 86.125v413.563c0 55.25-29.071 85.312-82.5 85.312m0-65.812c10.214 0 14.929-8.938 14.929-24.376V90.188c0-15.438-4.715-24.376-14.929-24.376s-15.714 8.938-15.714 24.376v404.624c0 15.438 5.5 24.376 15.714 24.376" style={{ transform: 'scaleY(0.868563)' }} />
-                                <path data-char="I" fill="#000" d="M385 585V5h67v580z" style={{ transform: 'scaleY(0.764938)' }} />
-                                <path data-char="N" fill="#000" d="M481 585V5h100.68l31.462 512.886h11.012l-3.146-116.829L612.356 5H680v580H579.32L542.352 72.114h-11.799l4.72 116.829L547.858 585z" />
-                            </svg>
-
-                            {/* Mobile SVG */}
-                            <svg
-                                className="img-full is-hidden:md-up svg-fix"
-                                style={{ transform: 'scaleY(0.986214)', transformOrigin: 'center top' }}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="351" height="313" fill="none" viewBox="0 0 351 313"
-                            >
-                                <path fill="#000" d="M247.946 312.999V2.586h52.088l16.277 274.494h5.697l-1.628-62.526-4.476-211.968H350.9v310.413h-52.087L279.687 38.505h-6.104l2.442 62.526 6.51 211.968h-34.589Z" />
-                                <path fill="#000" d="M199.281 235.396V2.586h34.663v232.81h-34.663Z" />
-                                <path fill="#000" d="M142.112 279.372c-27.641 0-42.681-14.357-42.681-40.742V41.13C99.43 14.357 114.47 0 142.112 0c27.642 0 42.682 14.357 42.682 41.13v197.5c0 26.385-15.04 40.742-42.682 40.742Zm0-31.429c5.285 0 7.724-4.269 7.724-11.641V43.07c0-7.373-2.439-11.64-7.724-11.64-5.284 0-8.129 4.267-8.129 11.64v193.232c0 7.372 2.845 11.641 8.129 11.641Z" />
-                                <path fill="#000" d="M42.13 241.606c-28.135 0-42.815-12.456-42-35.684l3.263-102.341h34.66l-3.67 100.657c-.408 6.397 2.446 10.1 7.747 10.1s7.748-3.703 7.748-10.1V31.203H.13V2.588h84.814v203.334c0 23.228-14.68 35.684-42.815 35.684Z" />
-                            </svg>
-
-                            {/* "Us" word decoration */}
-                            <img
-                                alt="Us"
-                                className="join-us-word img-full"
-                                src="/img/us-word.svg"
-                            />
-                        </div>
-
-                        {/* Mouse trail photos — inside title so they appear on hover */}
-                        {TRAIL_IMGS.map((id, i) => (
-                            <div
-                                key={i}
-                                className="trail-photo"
-                                style={{ width: TRAIL_SIZE, height: TRAIL_SIZE }}
-                            >
-                                <img
-                                    src={`https://images.unsplash.com/${id}?w=160&h=160&fit=crop`}
-                                    alt=""
-                                    draggable={false}
-                                />
+        <section className="section contact-section" id="contact">
+            <div className="contact-inner">
+                <div className="contact-left">
+                    <div className="contact-header reveal">
+                        <h2 className="contact-title">LET'S<br />CONNECT</h2>
+                    </div>
+                    <p className="contact-desc reveal">
+                        I'm always open to discussing new projects, creative ideas,
+                        or opportunities to be part of something amazing.
+                    </p>
+                    <div className="contact-links reveal">
+                        <a href="mailto:rajaman78167@gmail.com" className="contact-link">
+                            <div className="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
                             </div>
-                        ))}
+                            <div className="contact-link-text">
+                                <span className="contact-link-label">Email</span>
+                                <span className="contact-link-value">rajaman78167@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="tel:+919910772433" className="contact-link">
+                            <div className="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" /></svg>
+                            </div>
+                            <div className="contact-link-text">
+                                <span className="contact-link-label">Phone</span>
+                                <span className="contact-link-value">+91 9910772433</span>
+                            </div>
+                        </a>
+                        <a href="https://linkedin.com/in/aman-raj-250081303/" target="_blank" rel="noopener noreferrer" className="contact-link">
+                            <div className="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                            </div>
+                            <div className="contact-link-text">
+                                <span className="contact-link-label">LinkedIn</span>
+                                <span className="contact-link-value">aman-raj-250081303</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/Amanraj9910" target="_blank" rel="noopener noreferrer" className="contact-link">
+                            <div className="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                            </div>
+                            <div className="contact-link-text">
+                                <span className="contact-link-label">GitHub</span>
+                                <span className="contact-link-value">Amanraj9910</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
-
-                {/* Right col — CTA + button */}
-                <div className="join-right">
-                    <p className="join-description">
-                        Ready to take control of your creative journey?{' '}
-                        <span className="join-underline">Join now</span>{' '}
-                        and let's shape the future of the art world together!
-                    </p>
-
-                    <div className="join-btn-area">
-                        <div className="join-arrow-icon">
-                            <img
-                                src="/img/promo-arrow.svg"
-                                alt=""
-                                className="icon-shake-reverse"
+                <div className="contact-right">
+                    <form className="contact-form reveal" onSubmit={handleSubmit}>
+                        <h3 className="contact-form-title">Send me a message</h3>
+                        <div className="contact-form-group">
+                            <input
+                                type="text"
+                                placeholder="Your Name"
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                required
+                                className="contact-input"
                             />
                         </div>
-                        {/* <a href="/signup" className="join-btn">
-                            <span>Join</span>
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                <path d="M3.75 9h10.5M9.75 4.5 14.25 9l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </a> */}
-                    </div>
+                        <div className="contact-form-group">
+                            <input
+                                type="email"
+                                placeholder="Your Email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                required
+                                className="contact-input"
+                            />
+                        </div>
+                        <div className="contact-form-group">
+                            <textarea
+                                placeholder="Your Message"
+                                value={formData.message}
+                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                required
+                                rows="5"
+                                className="contact-input contact-textarea"
+                            />
+                        </div>
+                        <button type="submit" className={`contact-submit ${submitted ? 'contact-submit--sent' : ''}`}>
+                            {submitted ? (
+                                <>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5" /></svg>
+                                    Sent!
+                                </>
+                            ) : (
+                                <>
+                                    Send Message
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+                                </>
+                            )}
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            {/* Divider */}
-            <hr className="join-divider" />
-
-            {/* Footer */}
-            {/* <footer className="join-footer"> */}
-            {/* <div className="join-footer-right">
-                        <p>2026 © FOLLOW.ART</p>
+            <footer className="footer reveal">
+                <div className="footer-inner">
+                    <span className="footer-copy">© 2025 Aman Raj. Built with React & GSAP.</span>
+                    <div className="footer-links">
+                        <a href="https://github.com/Amanraj9910" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://linkedin.com/in/aman-raj-250081303/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:rajaman78167@gmail.com">Email</a>
                     </div>
-                <div className="join-footer-left">
-                    <nav className="join-footer-nav">
-                        <a href="#">Brand Kit</a>
-                        <a href="#">Buy Gift Card</a>
-                        <a href="#">Terms &amp; Conditions</a>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Cookie Policy</a>
-                    </nav>
-                    <p className="join-footer-credit">Digital product development by Vide Infra</p>
                 </div>
-            </footer> */}
+            </footer>
         </section>
     );
 };

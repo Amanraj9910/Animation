@@ -19,37 +19,87 @@ function App() {
     // Reveal animations for each section
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach((el) => {
-      gsap.to(el, {
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-      });
+      gsap.fromTo(el,
+        { opacity: 0, y: 50 },
+        {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+        }
+      );
     });
 
-    // Parallax on hero cards
-    const heroCards = document.querySelectorAll('.artist-card');
-    heroCards.forEach((card, i) => {
-      gsap.to(card, {
-        scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 1 },
-        y: -60 - i * 25, ease: 'none',
-      });
-    });
-
-    // Parallax on hero bottom text
-    gsap.to('.hero-bottom-text', {
+    // Parallax on hero photo
+    gsap.to('.hero-photo-block', {
       scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 1 },
-      y: -40, ease: 'none',
+      y: -60, ease: 'none',
     });
 
-    // Connectory shot perspective
-    gsap.fromTo('.connectory-shot', { y: 80, opacity: 1 }, {
-      scrollTrigger: { trigger: '.connectory-section', start: 'top 70%', end: 'center center', scrub: 1 },
-      y: 0, opacity: 1, ease: 'power2.out',
+    // Counter animation for stats
+    const statNums = document.querySelectorAll('.about-stat-number');
+    statNums.forEach((el) => {
+      const text = el.textContent;
+      const num = parseInt(text);
+      if (!isNaN(num)) {
+        gsap.fromTo(el,
+          { textContent: 0 },
+          {
+            scrollTrigger: { trigger: el, start: 'top 80%' },
+            textContent: num,
+            duration: 1.5,
+            ease: 'power2.out',
+            snap: { textContent: 1 },
+            onUpdate: function () {
+              const suffix = text.replace(/[0-9]/g, '');
+              el.textContent = Math.round(gsap.getProperty(el, 'textContent')) + suffix;
+            },
+          }
+        );
+      }
     });
 
-    // Join big text parallax
-    gsap.to('.join-big-text', {
-      scrollTrigger: { trigger: '.join-section', start: 'top 80%', end: 'center center', scrub: 1 },
-      y: -30, ease: 'none',
+    // Metric values animation
+    const metricVals = document.querySelectorAll('.metric-value');
+    metricVals.forEach((el) => {
+      const text = el.textContent;
+      const num = parseInt(text);
+      if (!isNaN(num)) {
+        gsap.fromTo(el,
+          { textContent: 0 },
+          {
+            scrollTrigger: { trigger: el, start: 'top 85%' },
+            textContent: num,
+            duration: 1.5,
+            ease: 'power2.out',
+            snap: { textContent: 1 },
+            onUpdate: function () {
+              const suffix = text.replace(/[0-9]/g, '');
+              el.textContent = Math.round(gsap.getProperty(el, 'textContent')) + suffix;
+            },
+          }
+        );
+      }
+    });
+
+    // Project cards stagger
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 80, scale: 0.95 },
+        {
+          scrollTrigger: { trigger: card, start: 'top 85%' },
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.7,
+          delay: i * 0.1,
+          ease: 'power3.out',
+        }
+      );
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -67,12 +117,12 @@ function App() {
       <div className="parallax-section parallax-section--7"><TestimonialsSection /></div>
       <div className="parallax-section parallax-section--8"><JoinSection /></div>
 
-      {/* Floating Join button */}
-      <a className="floating-join" href="#join">
+      {/* Floating Resume button */}
+      <a className="floating-join" href="mailto:rajaman78167@gmail.com">
         <div className="floating-join-top">
           <span className="floating-join-icon">↗</span>
         </div>
-        <span className="floating-join-text">Join</span>
+        <span className="floating-join-text">Hire Me</span>
       </a>
     </>
   );
