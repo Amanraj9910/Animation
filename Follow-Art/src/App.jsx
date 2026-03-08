@@ -64,28 +64,6 @@ function App() {
       }
     });
 
-    // Metric values animation
-    const metricVals = document.querySelectorAll('.metric-value');
-    metricVals.forEach((el) => {
-      const text = el.textContent;
-      const num = parseInt(text);
-      if (!isNaN(num)) {
-        gsap.fromTo(el,
-          { textContent: 0 },
-          {
-            scrollTrigger: { trigger: el, start: 'top 85%' },
-            textContent: num,
-            duration: 1.5,
-            ease: 'power2.out',
-            snap: { textContent: 1 },
-            onUpdate: function () {
-              const suffix = text.replace(/[0-9]/g, '');
-              el.textContent = Math.round(gsap.getProperty(el, 'textContent')) + suffix;
-            },
-          }
-        );
-      }
-    });
 
     // Project cards stagger
     const projectCards = document.querySelectorAll('.project-card');
@@ -108,14 +86,14 @@ function App() {
   return (
     <>
       <Header />
-      <div className="parallax-section parallax-section--1"><HeroSection /></div>
-      <div className="parallax-section parallax-section--2"><NexusSection /></div>
-      <div className="parallax-section parallax-section--3"><FollowArtSection /></div>
-      <div className="parallax-section parallax-section--4"><NexusCardSection /></div>
-      <div className="parallax-section parallax-section--5"><ConnectorySection /></div>
-      <div className="parallax-section parallax-section--6"><ArtistCarousel /></div>
-      <div className="parallax-section parallax-section--7"><TestimonialsSection /></div>
-      <div className="parallax-section parallax-section--8"><JoinSection /></div>
+      <HeroSection />
+      <NexusSection />
+      <FollowArtSection />
+      <NexusCardSection />
+      <ConnectorySection />
+      <ArtistCarousel />
+      <TestimonialsSection />
+      <JoinSection />
 
       {/* Floating Resume button */}
       <a className="floating-join" href="mailto:rajaman78167@gmail.com">

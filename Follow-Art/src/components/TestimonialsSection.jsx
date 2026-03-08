@@ -32,16 +32,6 @@ const TestimonialsSection = () => {
                     <h2 className="achievements-title">ACHIEVEMENTS</h2>
                 </div>
 
-                {/* Metrics Strip */}
-                <div className="metrics-strip reveal">
-                    {METRICS.map((m, i) => (
-                        <div className="metric-item" key={i}>
-                            <span className="metric-value">{m.value}</span>
-                            <span className="metric-label">{m.label}</span>
-                            <span className="metric-desc">{m.desc}</span>
-                        </div>
-                    ))}
-                </div>
 
                 {/* Achievement Cards */}
                 <div className="achievements-cards">
